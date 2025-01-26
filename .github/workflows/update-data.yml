@@ -1,8 +1,11 @@
 name: update-data
 
+permissions:
+  contents: write   # リポジトリの内容に書き込み許可
+
 on:
   schedule:
-    - cron: "0 3 * * *" # 毎日UTC 3:00（日本時間だと12:00）に実行
+    - cron: "0 9 * * *" # 毎日UTC 3:00（日本時間だと12:00）に実行
   workflow_dispatch: # 手動トリガーで実行も可能に
 
 jobs:
@@ -12,6 +15,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          # push する場合は、下記を false にするのが一般的
+          persist-credentials: false
 
       - name: Set up Node
         uses: actions/setup-node@v3
