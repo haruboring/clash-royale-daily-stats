@@ -1,11 +1,20 @@
 [
-	{
-		"date": "2025-01-25",
-		"wins": 0,
-		"losses": 0,
-		"matches": 0,
-		"totalWins": 16452,
-		"totalLosses": 11117,
-		"totalMatches": 27569
-	}
+  {
+    "date": "2025-01-25",
+    "wins": 0,
+    "losses": 0,
+    "matches": 0,
+    "totalWins": 16452,
+    "totalLosses": 11117,
+    "totalMatches": 27569
+  },
+  {
+    "date": "2025-01-26",
+    "wins": 0,
+    "losses": 0,
+    "matches": 0,
+    "totalWins": 16452,
+    "totalLosses": 11117,
+    "totalMatches": 27569
+  }
 ]
