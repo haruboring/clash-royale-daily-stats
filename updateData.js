@@ -15,8 +15,13 @@ async function main() {
 		const url = `https://api.clashroyale.com/v1/players/${encodeURIComponent(
 			PLAYER_TAG
 		)}`;
+
+		console.log("url:", url);
+		console.log("API_TOKEN:", API_TOKEN);
+		console.log("PLAYER_TAG:", PLAYER_TAG);
+
 		const headers = {
-			Authorization: `Bearer ${CR_API_TOKEN}`,
+			Authorization: `Bearer ${API_TOKEN}`,
 		};
 		const response = await axios.get(url, { headers });
 		const playerData = response.data;
