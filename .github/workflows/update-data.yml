@@ -1,0 +1,36 @@
+name: Update Clash Royale Data
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # 毎日UTC 3:00（日本時間だと12:00）に実行
+  workflow_dispatch: # 手動トリガーで実行も可能に
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install axios dayjs
+
+      - name: Update data.json
+        run: node updateData.js
+        env:
+          CR_API_TOKEN: ${{ secrets.CR_API_TOKEN }}
+          PLAYER_TAG: "#XXXXXXXX" # 自分のプレイヤータグを記入(#を含む)
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add data.json
+          git diff --quiet --exit-code data.json || git commit -m "Update data.json"
+          git push

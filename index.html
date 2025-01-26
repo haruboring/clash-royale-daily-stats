@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Clash Royale Daily Stats</title>
+		<!-- Chart.js (CDN) -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	</head>
+	<body>
+		<h1>Clash Royale Daily Stats</h1>
+
+		<!-- グラフを表示するCanvas -->
+		<canvas id="myChart" width="400" height="200"></canvas>
+
+		<!-- 日次＋累計を表示するテーブル -->
+		<table id="statsTable" border="1" style="margin-top: 20px;">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Daily Wins</th>
+					<th>Daily Losses</th>
+					<th>Daily Matches</th>
+					<th>Daily Win Rate</th>
+					<th>Daily Estimated Time (min)</th>
+					<th>Total Wins</th>
+					<th>Total Losses</th>
+					<th>Total Matches</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+
+		<script>
+			async function main() {
+			  // data.jsonを取得
+			  const response = await fetch('data.json');
+			  const data = await response.json();
+
+			  // 日付順にソートされていない場合はソートする（例: 昇順）
+			  // data.sort((a, b) => (a.date > b.date ? 1 : -1));
+
+			  // グラフ用のラベル（x軸）には日付を使う
+			  const labels = data.map(d => d.date);
+
+			  // 1日あたりの試合数・勝率を配列化
+			  const dailyMatches = data.map(d => d.matches);
+			  const dailyWinRates = data.map(d => {
+			    return d.matches > 0
+			      ? ((d.wins / d.matches) * 100).toFixed(1)
+			      : 0;
+			  });
+
+			  // テーブルに行を追加していく
+			  const tbody = document.getElementById('statsTable').querySelector('tbody');
+			  data.forEach(d => {
+			    const tr = document.createElement('tr');
+			    const dailyWinRate = d.matches > 0 ? ((d.wins / d.matches) * 100).toFixed(1) : 0;
+
+			    // 行のHTMLをまとめて作る
+			    tr.innerHTML = `
+			      <td>${d.date}</td>
+			      <td>${d.wins}</td>
+			      <td>${d.losses}</td>
+			      <td>${d.matches}</td>
+			      <td>${dailyWinRate}%</td>
+			      <td>${d.matches * 3} min</td>
+			      <td>${d.totalWins}</td>
+			      <td>${d.totalLosses}</td>
+			      <td>${d.totalMatches}</td>
+			    `;
+			    tbody.appendChild(tr);
+			  });
+
+			  // Chart.jsで折れ線グラフを描画
+			  const ctx = document.getElementById('myChart').getContext('2d');
+			  new Chart(ctx, {
+			    type: 'line',
+			    data: {
+			      labels: labels,
+			      datasets: [
+			        {
+			          label: 'Daily Matches',
+			          data: dailyMatches,
+			          borderColor: 'blue',
+			          fill: false,
+			        },
+			        {
+			          label: 'Daily Win Rate (%)',
+			          data: dailyWinRates,
+			          borderColor: 'red',
+			          fill: false,
+			          yAxisID: 'y2', // 勝率を別軸表示にしたい場合
+			        }
+			      ]
+			    },
+			    options: {
+			      responsive: true,
+			      // 勝率と試合数を別軸にするサンプル（必要に応じてお好みで）
+			      scales: {
+			        y: {
+			          beginAtZero: true,
+			          title: {
+			            display: true,
+			            text: 'Matches'
+			          }
+			        },
+			        y2: {
+			          beginAtZero: true,
+			          position: 'right',
+			          title: {
+			            display: true,
+			            text: 'Win Rate (%)'
+			          }
+			        }
+			      }
+			    }
+			  });
+			}
+
+			main();
+		</script>
+	</body>
+</html>
