@@ -1,4 +1,4 @@
-name: Update Clash Royale Data
+name: update-data
 
 on:
   schedule:
@@ -25,7 +25,7 @@ jobs:
         run: node updateData.js
         env:
           CR_API_TOKEN: ${{ secrets.CR_API_TOKEN }}
-          PLAYER_TAG: "#XXXXXXXX" # 自分のプレイヤータグを記入(#を含む)
+          PLAYER_TAG: "#Q9U980QJG" # 自分のプレイヤータグを記入(#を含む)
 
       - name: Commit changes
         run: |
