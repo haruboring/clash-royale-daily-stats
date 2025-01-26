@@ -1,12 +1,12 @@
 name: update-data
 
 permissions:
-  contents: write   # リポジトリの内容に書き込み許可
+  contents: write   # リポジトリの内容への書き込み権限を付与
 
 on:
   schedule:
-    - cron: "0 9 * * *" # 毎日UTC 3:00（日本時間だと12:00）に実行
-  workflow_dispatch: # 手動トリガーで実行も可能に
+    - cron: "0 9 * * *" # 毎日UTC 9:00（日本時間18:00）に実行
+  workflow_dispatch: # 手動トリガーも可能
 
 jobs:
   update-data:
@@ -16,7 +16,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
         with:
-          # push する場合は、下記を false にするのが一般的
+          # push する場合は、下記を false にする
           persist-credentials: false
 
       - name: Set up Node
@@ -31,12 +31,22 @@ jobs:
         run: node updateData.js
         env:
           CR_API_TOKEN: ${{ secrets.CR_API_TOKEN }}
-          PLAYER_TAG: "#Q9U980QJG" # 自分のプレイヤータグを記入(#を含む)
+          PLAYER_TAG: "#Q9U980QJG" # 自分のプレイヤータグ(先頭#含む)
+
+      - name: Configure git for pushing
+        run: |
+          # コミット用のユーザ名・メールをセット
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          # リモートURLを x-access-token:${{ secrets.GITHUB_TOKEN }} 形式に書き換え
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
       - name: Commit changes
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
           git add data.json
-          git diff --quiet --exit-code data.json || git commit -m "Update data.json"
-          git push
+          # 変更が無い場合のエラー回避策として || echo を追加
+          git commit -m "Update data.json" || echo "No changes to commit"
+          # 現在のブランチにPushする
+          git push origin HEAD:${{ github.ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
