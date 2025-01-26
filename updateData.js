@@ -16,7 +16,7 @@ async function main() {
 			PLAYER_TAG
 		)}`;
 		const headers = {
-			Authorization: `Bearer ${API_TOKEN}`,
+			Authorization: `Bearer ${CR_API_TOKEN}`,
 		};
 		const response = await axios.get(url, { headers });
 		const playerData = response.data;
