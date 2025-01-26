@@ -56,7 +56,7 @@ async function main() {
 
 		if (prev) {
 			dailyWins = totalWins - prev.totalWins;
-			dailyLosses = totalLosses - prev.totalLossess;
+			dailyLosses = totalLosses - prev.totalLosses;
 		}
 		let dailyMatches = dailyWins + dailyLosses;
 
