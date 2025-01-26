@@ -12,7 +12,7 @@ async function main() {
 		// Clash Royale API からデータを取得
 		// https://developer.clashroyale.com/#/documentation
 		// GET /players/{playerTag}
-		const url = `https://api.clashroyale.com/v1/players/${encodeURIComponent(
+		const url = `https://proxy.royaleapi.dev/v1/players/${encodeURIComponent(
 			PLAYER_TAG
 		)}`;
 
