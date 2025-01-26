@@ -31,7 +31,7 @@ async function main() {
       : [];
 
     // 日付と時刻を別々に取得
-    const now = dayjs();
+    const now = dayjs().utc().add(9, 'hour')  // 日本時間に変換
     const currentDate = now.format("YYYY-MM-DD");  // 例: "2025-01-31"
     const currentTime = now.format("HH:mm");       // 例: "08:15"
 
