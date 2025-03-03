@@ -348,5 +348,15 @@
     "totalWins": 16580,
     "totalLosses": 11207,
     "totalMatches": 27787
+  },
+  {
+    "date": "2025-03-03",
+    "time": "18:15",
+    "wins": 0,
+    "losses": 0,
+    "matches": 0,
+    "totalWins": 16580,
+    "totalLosses": 11207,
+    "totalMatches": 27787
   }
 ]
