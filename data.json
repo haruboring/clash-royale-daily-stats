@@ -828,5 +828,15 @@
     "totalWins": 16887,
     "totalLosses": 11459,
     "totalMatches": 28346
+  },
+  {
+    "date": "2025-04-20",
+    "time": "18:12",
+    "wins": 10,
+    "losses": 4,
+    "matches": 14,
+    "totalWins": 16897,
+    "totalLosses": 11463,
+    "totalMatches": 28360
   }
 ]
