@@ -1958,5 +1958,15 @@
     "totalWins": 17545,
     "totalLosses": 11901,
     "totalMatches": 29446
+  },
+  {
+    "date": "2025-08-12",
+    "time": "18:17",
+    "wins": 15,
+    "losses": 11,
+    "matches": 26,
+    "totalWins": 17560,
+    "totalLosses": 11912,
+    "totalMatches": 29472
   }
 ]
