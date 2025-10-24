@@ -42,11 +42,11 @@ async function main() {
 
 		// 「同じ日付のデータがすでにあれば更新しない」というロジック
 		// もし「1日に複数回記録したい」なら、この条件を変える必要があります
-		const latest = jsonData[jsonData.length - 1];
-		if (latest && latest.date === currentDate) {
-			console.log("Already updated today.");
-			return;
-		}
+		// const latest = jsonData[jsonData.length - 1];
+		// if (latest && latest.date === currentDate) {
+		// 	console.log("Already updated today.");
+		// 	return;
+		// }
 
 		// 前日データがあれば差分を計算
 		const prev = jsonData.length > 0 ? jsonData[jsonData.length - 1] : null;
