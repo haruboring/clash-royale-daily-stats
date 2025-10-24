@@ -3,10 +3,15 @@ name: update-data
 permissions:
   contents: write   # リポジトリの内容への書き込み権限を付与
 
+# on:
+#   schedule:
+#     - cron: "0 9 * * *" # 毎日UTC 9:00（日本時間18:00）に実行
+#   workflow_dispatch: # 手動トリガーも可能
+
 on:
   schedule:
-    - cron: "0 9 * * *" # 毎日UTC 9:00（日本時間18:00）に実行
-  workflow_dispatch: # 手動トリガーも可能
+    - cron: "0 * * * *" # 毎時0分（1時間ごと）に実行
+  workflow_dispatch:
 
 jobs:
   update-data:
