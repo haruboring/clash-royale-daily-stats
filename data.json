@@ -4228,5 +4228,15 @@
     "totalWins": 19038,
     "totalLosses": 13153,
     "totalMatches": 32191
+  },
+  {
+    "date": "2026-01-20",
+    "time": "18:37",
+    "wins": 9,
+    "losses": 7,
+    "matches": 16,
+    "totalWins": 19047,
+    "totalLosses": 13160,
+    "totalMatches": 32207
   }
 ]
